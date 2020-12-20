@@ -51,7 +51,8 @@ $(document).ready(function(){
     }
 
     $("#addpostbtn").click(function(){
-		addPost();
+        addPost();
+        cleartextboxes();
     });
 
     var getSelectList=function(){
@@ -137,19 +138,22 @@ $(document).ready(function(){
 		deletePost();
 	});
     
-    /*var updatePost=function(){
+    var updatePost=function(){
+        var selectedId = $("#postList").val();
+
         $.ajax({
-            url:"http://localhost:59760/api/posts/"+$("#selectedPost").val(),
+            url:"http://localhost:59760/api/posts/"+selectedId,
             method: "PUT",
             header:"Content-Type:application/json",
             data:{
                 text:$("#updateText").val()
             },
             complete:function(xmlhttp,status){
-                if(xmlhttp.status==201)
+                if(xmlhttp.status==200)
                 {
-                    $("#msg").html("New Post Added");
+                    $("#msg").html("Post Updated");
                     loadPosts();
+                    getSelectList();
                 }
                 else
                 {
@@ -158,8 +162,17 @@ $(document).ready(function(){
             }
         });
     }
+
+    $("#updatePost").click(function(){
+        updatePost();
+        cleartextboxes();
+    });
     
-    var loadComments=function(){
+    function cleartextboxes() {
+        $("#text").val("");
+    }
+    
+    /*var loadComments=function(){
         $.ajax({
             url:"http://localhost:59760/api/posts/{id}/comments",
             method: "GET",
