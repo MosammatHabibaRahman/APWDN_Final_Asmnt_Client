@@ -66,7 +66,7 @@ $(document).ready(function(){
                     var str='';
                     for (var i = 0; i < data.length; i++)
                     {
-                        $("#updateText").html(data[0].text);
+                        $("#updateText").val(data[0].text);
                         str+="<option value="+data[i].postId+">Post #"+(i+1)+"</option>";
                     }
 
@@ -86,19 +86,16 @@ $(document).ready(function(){
         var selectedId = $("#postList").val();
         
         $.ajax({
-            url:"http://localhost:59760/api/posts",
+            url:"http://localhost:59760/api/posts/"+selectedId,
             method: "GET",
             complete: function(xmlhttp,status){
                 if(xmlhttp.status==200)
                 {
                     var data=xmlhttp.responseJSON;
                     var str='';
-                    for (var i = 0; i < data.length; i++)
+                    if(selectedId==data.postId)
                     {
-                        if(selectedId==data[i].postId)
-                        {
-                            $("#updateText").html(data[i].text);
-                        }
+                        $("#updateText").val(data.text);
                     }
                 }
                 else

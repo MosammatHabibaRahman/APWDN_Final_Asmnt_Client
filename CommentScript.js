@@ -146,7 +146,7 @@ $(document).ready(function(){
                     var str='';
                     for (var i = 0; i < data.length; i++)
                     {
-                        $("#updateText").html(data[0].text);
+                        $("#updateText").val(data[0].text);
                         str+="<option value="+data[i].commentId+">Comment #"+(i+1)+"</option>";
                     }
 
@@ -176,7 +176,7 @@ $(document).ready(function(){
                     var str='';
                     if(selectedId==data.commentId)
                     {
-                        $("#updateText").html(data.text);
+                        $("#updateText").val(data.text);
                     }
                 }
                 else
