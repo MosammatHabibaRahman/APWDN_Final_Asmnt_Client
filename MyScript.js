@@ -12,7 +12,7 @@ $(document).ready(function(){
                     for (var i = 0; i < data.length; i++)
                     {
                         //str+="<tr><td><b>Post #"+(i+1)+"</b></td></tr><tr><td>"+data[i].text+"</td></tr><tr><td><button id="+"commentbtn"+">See Comments</button></td></tr>";
-                        str+="<tr><td><b>Post #"+(i+1)+"</b></td></tr><tr><td>"+data[i].text+"</td></tr><tr><td><a href="+"Comments.html"+">See Comments</a></td></tr>";
+                        str+="<tr><td><b>Post #"+(i+1)+"</b></td></tr><tr><td>"+data[i].text+"</td></tr><tr><td><a href="+"Comments.html?id="+data[i].postId+">See Comments</a></td></tr>";
                     }
 
                     $("#posts").html(str);
@@ -168,7 +168,7 @@ $(document).ready(function(){
         cleartextboxes();
     });
     
-    function cleartextboxes() {
+    var cleartextboxes=function(){
         $("#text").val("");
     }
     

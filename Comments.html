@@ -4,9 +4,64 @@
         <title>Blog Post System</title>
         <meta charset="utf-8">
         <script type="text/javascript" src="jquery-3.5.1.js"></script>
-        <!--<script type="text/javascript" src="MyScript.js"></script>-->
+        <script type="text/javascript" src="CommentScript.js"></script>
     </head>
     <body>
-        <h1>Comments Page</h1>
+        <center>
+            <h2>Comments Page</h2>
+
+            <table border=1 width=500px>
+                <tr>
+                    <td>
+                        <table id=post></table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table id=comments></table>
+                    </td>
+                </tr>
+            </table>
+
+            <h2>Add a Comment</h2>
+            <table width="500px">
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><label>Comment Text: </label></td>
+                            </tr>
+                            <tr>
+                                <td><textarea id="text" style="width: 500px;"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td><button id="addcommentbtn">Post Comment</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <h2>Edit Comment</h2>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><select id="commentList"></select></td>
+                            </tr>
+                            <tr>
+                                <td><textarea id="updateText" style="width: 500px;"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td><button id=updateComment>Edit</button> <button id=deleteComment>Delete Comment</button></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <p id="msg"></p>
+        </center>
     </body>
 </html>
