@@ -92,7 +92,7 @@ $(document).ready(function(){
                 {
                     $("#msg").html("New Post Added");
                     loadComments();
-                    //getSelectList();
+                    getSelectList();
                 }
                 else
                 {
@@ -104,6 +104,122 @@ $(document).ready(function(){
 
     $("#addcommentbtn").click(function(){
         addComment();
+        cleartextboxes();
+    });
+
+    var deleteComment=function(){
+        var postId = parseInt(getUrlParameter('id'));
+        var selectedId = $("#commentList").val();
+        
+        $.ajax({
+            url:"http://localhost:59760/api/posts/"+postId+"/comments/"+selectedId,
+            method: "DELETE",
+            complete: function(xmlhttp,status){
+                if(xmlhttp.status==204)
+                {
+                    $("#msg").html("Comment Deleted");
+                    loadComments();
+                    getSelectList();
+                }
+                else
+                {
+                    $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
+                }
+            }
+        });
+    }
+
+    $("#deleteComment").click(function(){
+		deleteComment();
+    });
+    
+    var getSelectList=function(){
+        var postId = parseInt(getUrlParameter('id'));
+
+        $.ajax({
+            url:"http://localhost:59760/api/posts/"+postId+"/comments",
+            method: "GET",
+            complete: function(xmlhttp,status){
+                if(xmlhttp.status==200)
+                {
+                    var data=xmlhttp.responseJSON;
+                    var str='';
+                    for (var i = 0; i < data.length; i++)
+                    {
+                        $("#updateText").html(data[0].text);
+                        str+="<option value="+data[i].commentId+">Comment #"+(i+1)+"</option>";
+                    }
+
+                    $("#commentList").html(str);
+                }
+                else
+                {
+                    $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
+                }
+            }
+        });
+    }
+
+    getSelectList();
+
+    var fillUpdateText=function(){
+        var postId = parseInt(getUrlParameter('id'));
+        var selectedId = $("#commentList").val();
+        
+        $.ajax({
+            url:"http://localhost:59760/api/posts/"+postId+"/comments/"+selectedId,
+            method: "GET",
+            complete: function(xmlhttp,status){
+                if(xmlhttp.status==200)
+                {
+                    var data=xmlhttp.responseJSON;
+                    var str='';
+                    if(selectedId==data.commentId)
+                    {
+                        $("#updateText").html(data.text);
+                    }
+                }
+                else
+                {
+                    $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
+                }
+            }
+        });
+    }
+    
+    $("#commentList").change(function(){
+		fillUpdateText();
+    });
+
+    var updateComment=function(){
+        var postId = parseInt(getUrlParameter('id'));
+        var selectedId = $("#commentList").val();
+        
+        $.ajax({
+            url:"http://localhost:59760/api/posts/"+postId+"/comments/"+selectedId,
+            method: "PUT",
+            header:"Content-Type:application/json",
+            data:{
+                text:$("#updateText").val(),
+                postId:postId
+            },
+            complete:function(xmlhttp,status){
+                if(xmlhttp.status==200)
+                {
+                    $("#msg").html("Comment Updated");
+                    loadComments();
+                    getSelectList();
+                }
+                else
+                {
+                    $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
+                }
+            }
+        });
+    }
+
+    $("#updateComment").click(function(){
+        updateComment();
         cleartextboxes();
     });
 

@@ -171,32 +171,4 @@ $(document).ready(function(){
     var cleartextboxes=function(){
         $("#text").val("");
     }
-    
-    /*var loadComments=function(){
-        $.ajax({
-            url:"http://localhost:59760/api/posts/{id}/comments",
-            method: "GET",
-            complete: function(xmlhttp,status){
-                if(xmlhttp.status==200)
-                {
-                    var data=xmlhttp.responseJSON;
-                    var str='';
-                    for (var i = 0; i < data.length; i++)
-                    {
-                        str+="<tr><td><b>Comment #"+(i+1)+"</b></td></tr><tr><td>"+data[i].text+"</td></tr>"
-                    }
-
-                    $("#posts").html(str);
-                }
-                else
-                {
-                    $("#msg").html(xmlhttp.status+": "+xmlhttp.statusText);
-                }
-            }
-        });
-    }
-
-    $("#commentbtn").click(function(){
-		loadComments();
-	});*/
 });
